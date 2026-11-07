@@ -23,6 +23,8 @@ kotlin {
             implementation(projects.feature.auth)
             implementation(projects.data.category)
             implementation(projects.feature.category)
+            implementation(projects.data.transaction)
+            implementation(projects.feature.transaction)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.runtime.compose)
