@@ -21,6 +21,8 @@ kotlin {
             implementation(projects.domain.auth)
             implementation(projects.data.auth)
             implementation(projects.feature.auth)
+            implementation(projects.data.category)
+            implementation(projects.feature.category)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.runtime.compose)
