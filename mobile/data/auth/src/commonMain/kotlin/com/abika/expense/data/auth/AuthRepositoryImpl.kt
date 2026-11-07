@@ -9,6 +9,7 @@ import com.abika.expense.data.auth.dto.MeDto
 import com.abika.expense.data.auth.dto.RegisterRequestDto
 import com.abika.expense.data.auth.dto.TokenResponseDto
 import com.abika.expense.domain.auth.AuthRepository
+import com.abika.expense.domain.auth.LoginHook
 import com.abika.expense.domain.auth.LogoutHook
 import com.abika.expense.domain.auth.Me
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,7 @@ internal class AuthRepositoryImpl(
     private val api: ApiClient,
     private val tokenStore: TokenStore,
     private val logoutHooks: List<LogoutHook>,
+    private val loginHooks: List<LoginHook> = emptyList(),
 ) : AuthRepository {
 
     override val isLoggedIn: Flow<Boolean> = tokenStore.token.map { it != null }.distinctUntilChanged()
@@ -45,6 +47,7 @@ internal class AuthRepositoryImpl(
     private suspend fun storeToken(result: ResultState<TokenResponseDto>): ResultState<Unit> {
         if (result is ResultState.Success) {
             tokenStore.save(result.data.token)
+            loginHooks.forEach { it.afterLogin() }
         }
         return result.map { }
     }
