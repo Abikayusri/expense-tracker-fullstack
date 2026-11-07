@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
+// Firebase is optional for local development: without google-services.json the app runs and simply gets no push token.
+if (file("google-services.json").exists()) {
+    apply(plugin = libs.plugins.google.services.get().pluginId)
+}
+
 android {
     namespace = "com.abika.expense.android"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -39,4 +44,8 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.android)
+    implementation(projects.domain.auth)
+    implementation(projects.core.dataStore)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
 }
