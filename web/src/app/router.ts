@@ -4,6 +4,7 @@ import AppLayout from './AppLayout.vue'
 import PlaceholderPage from './PlaceholderPage.vue'
 import LoginPage from '@/features/auth/LoginPage.vue'
 import RegisterPage from '@/features/auth/RegisterPage.vue'
+import CategoriesPage from '@/features/categories/CategoriesPage.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -23,7 +24,7 @@ export function createAppRouter(history: RouterHistory) {
         children: [
           { path: '', component: PlaceholderPage, props: { title: 'Dashboard' } },
           { path: 'transactions', component: PlaceholderPage, props: { title: 'Transaksi' } },
-          { path: 'categories', component: PlaceholderPage, props: { title: 'Kategori' } },
+          { path: 'categories', component: CategoriesPage },
         ],
       },
       { path: '/:pathMatch(.*)*', redirect: '/' },
