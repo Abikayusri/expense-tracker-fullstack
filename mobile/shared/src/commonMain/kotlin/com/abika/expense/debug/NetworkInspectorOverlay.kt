@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +33,10 @@ fun BoxScope.NetworkInspectorOverlay() {
         Surface(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.fillMaxSize().safeDrawingPadding()) {
                 KtorMonitor(modifier = Modifier.fillMaxSize())
-                TextButton(onClick = { open = false }, modifier = Modifier.align(Alignment.TopEnd)) {
+                SmallFloatingActionButton(
+                    onClick = { open = false },
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(12.dp),
+                ) {
                     Text("Tutup")
                 }
             }

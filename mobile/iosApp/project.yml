@@ -16,6 +16,8 @@ targets:
       path: iosApp/Info.plist
       properties:
         CFBundleDisplayName: Expense Tracker
+        # Required by Compose Multiplatform for ProMotion frame rates.
+        CADisableMinimumFrameDurationOnPhone: true
         UILaunchScreen: {}
         # Lets the simulator reach the backend on http://localhost during development.
         NSAppTransportSecurity:

@@ -33,6 +33,8 @@ fun createHttpClient(engine: HttpClientEngine, config: ApiConfig, tokenStore: To
         })
         install(KtorMonitorLogging) {
             isActive = config.enableNetworkInspector
+            // The in-app "API" button opens the inspector; a notification would make iOS ask for permission at login.
+            showNotification = false
             sanitizeHeader { header -> header == HttpHeaders.Authorization }
         }
     }
