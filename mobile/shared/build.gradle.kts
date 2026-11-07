@@ -13,9 +13,20 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.core.network)
             implementation(projects.core.common)
             implementation(projects.core.designSystem)
+            implementation(projects.core.sharedUi)
+            implementation(projects.core.dataStore)
+            implementation(projects.domain.auth)
+            implementation(projects.data.auth)
+            implementation(projects.feature.auth)
             implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.lifecycle.runtime.compose)
+            implementation(libs.lifecycle.viewmodel.navigation3)
+            implementation(libs.navigation3.ui)
+            implementation(libs.ktor.monitor.logging)
         }
     }
 }
