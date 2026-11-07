@@ -17,3 +17,8 @@ dependencyResolutionManagement {
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+include(":androidApp")
+include(":shared")
+include(":core:common")
+include(":core:design-system")
