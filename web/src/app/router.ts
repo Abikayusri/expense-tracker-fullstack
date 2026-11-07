@@ -5,6 +5,7 @@ import PlaceholderPage from './PlaceholderPage.vue'
 import LoginPage from '@/features/auth/LoginPage.vue'
 import RegisterPage from '@/features/auth/RegisterPage.vue'
 import CategoriesPage from '@/features/categories/CategoriesPage.vue'
+import TransactionsPage from '@/features/transactions/TransactionsPage.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -23,7 +24,7 @@ export function createAppRouter(history: RouterHistory) {
         component: AppLayout,
         children: [
           { path: '', component: PlaceholderPage, props: { title: 'Dashboard' } },
-          { path: 'transactions', component: PlaceholderPage, props: { title: 'Transaksi' } },
+          { path: 'transactions', component: TransactionsPage },
           { path: 'categories', component: CategoriesPage },
         ],
       },

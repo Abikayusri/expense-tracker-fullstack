@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { currentMonth, formatRupiah } from '../format'
+import { currentMonth, formatDate, formatRupiah, today } from '../format'
 
 describe('formatRupiah', () => {
   it('formats with Indonesian thousand separators', () => {
@@ -16,5 +16,17 @@ describe('currentMonth', () => {
   it('pads the month', () => {
     expect(currentMonth(new Date(2026, 0, 5))).toBe('2026-01')
     expect(currentMonth(new Date(2026, 10, 30))).toBe('2026-11')
+  })
+})
+
+describe('today', () => {
+  it('uses the local calendar date', () => {
+    expect(today(new Date(2026, 10, 7, 23, 30))).toBe('2026-11-07')
+  })
+})
+
+describe('formatDate', () => {
+  it('formats an ISO date in Indonesian', () => {
+    expect(formatDate('2026-11-07')).toBe('7 Nov 2026')
   })
 })
