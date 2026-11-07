@@ -4,6 +4,7 @@ import com.abika.expense.domain.exception.ConflictException;
 import com.abika.expense.domain.exception.DomainValidationException;
 import com.abika.expense.domain.exception.InvalidCredentialsException;
 import com.abika.expense.domain.exception.NotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -42,6 +43,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConflictException.class)
     ProblemDetail handleConflict(ConflictException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+    }
+
+    // Unique indexes back up the service-level checks when two requests race.
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    ProblemDetail handleDataIntegrity(DataIntegrityViolationException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, "Data bentrok dengan data yang sudah ada");
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
