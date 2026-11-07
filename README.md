@@ -6,7 +6,7 @@ A small expense tracker used to practise fullstack development: a Java backend, 
 |---|---|---|
 | `backend/` | Java 21, Spring Boot 4, PostgreSQL, hexagonal architecture | Done |
 | `web/` | Vue 3, TypeScript, Vite, TanStack Vue Query, Pinia, Tailwind CSS | Done |
-| `mobile/` | Kotlin Multiplatform, Compose Multiplatform, Koin, Ktor | In progress |
+| `mobile/` | Kotlin Multiplatform, Compose Multiplatform, Koin, Ktor, KtorMonitor | Done (Android push in progress) |
 
 ## Features
 
@@ -89,6 +89,10 @@ open iosApp.xcodeproj
 ```
 
 Then run the `iosApp` scheme on an Apple-silicon simulator. The Xcode project is generated from `project.yml` and is not committed.
+
+The app talks to `http://10.0.2.2:8080` on the Android emulator and `http://localhost:8080` on the iOS simulator. To use another backend port, build Android with `./gradlew :androidApp:installDebug -Pexpense.apiPort=9100` and iOS with the `API_BASE_URL` build setting (default in `iosApp/Config.xcconfig`).
+
+Debug builds show an **API** button in the bottom-left corner that opens KtorMonitor, a network inspector listing every request and response.
 
 Mobile tests (Android host and iOS simulator):
 
