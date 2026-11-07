@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: expense
+  datasource:
+    url: jdbc:postgresql://localhost:${DB_PORT:5433}/expense
+    username: expense
+    password: expense
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:dev-secret-change-me-dev-secret-change-me-32b}
+    ttl: P7D
+  firebase:
+    credentials-path: ${FIREBASE_CREDENTIALS_PATH:}
