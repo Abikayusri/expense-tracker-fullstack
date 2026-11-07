@@ -6,7 +6,7 @@ A small expense tracker used to practise fullstack development: a Java backend, 
 |---|---|---|
 | `backend/` | Java 21, Spring Boot 4, PostgreSQL, hexagonal architecture | Done |
 | `web/` | Vue 3, TypeScript, Vite, TanStack Vue Query, Pinia, Tailwind CSS | Done |
-| `mobile/` | Kotlin Multiplatform, Compose Multiplatform | Planned |
+| `mobile/` | Kotlin Multiplatform, Compose Multiplatform, Koin, Ktor | In progress |
 
 ## Features
 
@@ -67,6 +67,34 @@ cd web
 npm run test:unit -- --run
 npm run type-check
 npm run lint
+```
+
+## Run the mobile app
+
+Requirements: JDK 21, Android SDK (compileSdk 37), Xcode with an iOS simulator runtime, and [xcodegen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`).
+
+Android (emulator or device):
+
+```bash
+cd mobile
+./gradlew :androidApp:installDebug
+```
+
+iOS simulator:
+
+```bash
+cd mobile/iosApp
+xcodegen generate
+open iosApp.xcodeproj
+```
+
+Then run the `iosApp` scheme on an Apple-silicon simulator. The Xcode project is generated from `project.yml` and is not committed.
+
+Mobile tests (Android host and iOS simulator):
+
+```bash
+cd mobile
+./gradlew allTests
 ```
 
 ## Run the backend tests
