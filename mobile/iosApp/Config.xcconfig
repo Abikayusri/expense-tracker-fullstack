@@ -1,0 +1,2 @@
+// "//" starts a comment in xcconfig, so the URL is split with $() to keep both slashes.
+API_BASE_URL = http:/$()/localhost:8080
