@@ -6,7 +6,7 @@ A small expense tracker used to practise fullstack development: a Java backend, 
 |---|---|---|
 | `backend/` | Java 21, Spring Boot 4, PostgreSQL, hexagonal architecture | Done |
 | `web/` | Vue 3, TypeScript, Vite, TanStack Vue Query, Pinia, Tailwind CSS | Done |
-| `mobile/` | Kotlin Multiplatform, Compose Multiplatform, Koin, Ktor, KtorMonitor | Done (Android push in progress) |
+| `mobile/` | Kotlin Multiplatform, Compose Multiplatform, Koin, Ktor, KtorMonitor, FCM (Android) | Done |
 
 ## Features
 
@@ -93,6 +93,17 @@ Then run the `iosApp` scheme on an Apple-silicon simulator. The Xcode project is
 The app talks to `http://10.0.2.2:8080` on the Android emulator and `http://localhost:8080` on the iOS simulator. To use another backend port, build Android with `./gradlew :androidApp:installDebug -Pexpense.apiPort=9100` and iOS with the `API_BASE_URL` build setting (default in `iosApp/Config.xcconfig`).
 
 Debug builds show an **API** button in the bottom-left corner that opens KtorMonitor, a network inspector listing every request and response.
+
+### Push notifications (Android)
+
+When an expense pushes a category over its monthly budget, the backend sends one push per category per month. To receive it on Android:
+
+1. Create a Firebase project and add an Android app with package name `com.abika.expense`.
+2. Download `google-services.json` into `mobile/androidApp/` (git-ignored). Without it the app builds and runs normally, just without push.
+3. In Firebase project settings, create a service-account key, save it as `secrets/firebase.json`, and start the backend with `FIREBASE_CREDENTIALS_PATH=/secrets/firebase.json docker compose up --build`.
+4. Use an emulator image with Google Play services. After login the app asks for notification permission (Android 13+) and registers the device; logging out removes it.
+
+iOS has no push yet (it needs a paid Apple Developer account); the dashboard banner shows budget alerts instead.
 
 Mobile tests (Android host and iOS simulator):
 
