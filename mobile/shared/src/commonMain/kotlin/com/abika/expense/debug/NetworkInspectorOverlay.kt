@@ -47,7 +47,8 @@ fun BoxScope.NetworkInspectorOverlay() {
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .safeDrawingPadding()
-                .padding(12.dp)
+                // Sits above the bottom navigation bar so it never covers a tab.
+                .padding(start = 12.dp, bottom = 96.dp)
                 .semantics { contentDescription = "Buka network inspector" },
         ) {
             Text("API")
