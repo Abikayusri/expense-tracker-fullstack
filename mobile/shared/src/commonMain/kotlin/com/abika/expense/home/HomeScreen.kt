@@ -15,16 +15,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import com.abika.expense.feature.category.ui.CategoriesScreen
+import com.abika.expense.feature.summary.ui.DashboardScreen
 import com.abika.expense.feature.transaction.ui.TransactionsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onLogout: () -> Unit, modifier: Modifier = Modifier) {
-    var selected by rememberSaveable { mutableIntStateOf(HomeTab.Transactions.ordinal) }
+    var selected by rememberSaveable { mutableIntStateOf(HomeTab.Dashboard.ordinal) }
     val tab = HomeTab.entries[selected]
 
     Scaffold(
@@ -52,10 +52,7 @@ fun HomeScreen(onLogout: () -> Unit, modifier: Modifier = Modifier) {
             when (tab) {
                 HomeTab.Categories -> CategoriesScreen()
                 HomeTab.Transactions -> TransactionsScreen()
-                HomeTab.Dashboard -> Text(
-                    "${tab.label} segera hadir.",
-                    modifier = Modifier.align(Alignment.Center),
-                )
+                HomeTab.Dashboard -> DashboardScreen(onOpenCategories = { selected = HomeTab.Categories.ordinal })
             }
         }
     }
