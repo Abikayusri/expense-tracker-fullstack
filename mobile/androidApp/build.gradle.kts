@@ -13,10 +13,14 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "0.1.0"
+        val apiPort = providers.gradleProperty("expense.apiPort").get()
+        // 10.0.2.2 is the host machine as seen from the Android emulator.
+        buildConfigField("String", "API_BASE_URL", "\"http://10.0.2.2:$apiPort\"")
     }
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     compileOptions {
