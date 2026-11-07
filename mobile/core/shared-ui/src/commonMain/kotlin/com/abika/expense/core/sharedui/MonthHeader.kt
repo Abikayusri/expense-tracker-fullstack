@@ -1,4 +1,4 @@
-package com.abika.expense.feature.transaction.ui.component
+package com.abika.expense.core.sharedui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

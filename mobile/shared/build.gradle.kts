@@ -25,6 +25,8 @@ kotlin {
             implementation(projects.feature.category)
             implementation(projects.data.transaction)
             implementation(projects.feature.transaction)
+            implementation(projects.data.summary)
+            implementation(projects.feature.summary)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.runtime.compose)

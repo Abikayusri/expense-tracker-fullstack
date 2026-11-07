@@ -11,11 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.abika.expense.core.sharedui.ErrorBanner
+import com.abika.expense.core.sharedui.MonthHeader
 import com.abika.expense.feature.transaction.TransactionsAction
 import com.abika.expense.feature.transaction.TransactionsState
 import com.abika.expense.feature.transaction.ui.component.CategoryFilterRow
 import com.abika.expense.feature.transaction.ui.component.DeleteTransactionDialog
-import com.abika.expense.feature.transaction.ui.component.MonthHeader
 import com.abika.expense.feature.transaction.ui.component.TransactionFormSheet
 import com.abika.expense.feature.transaction.ui.component.TransactionList
 
