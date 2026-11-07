@@ -2,13 +2,18 @@ package com.abika.expense.config;
 
 import com.abika.expense.application.port.in.AuthUseCase;
 import com.abika.expense.application.port.in.CategoryUseCase;
+import com.abika.expense.application.port.in.ExpenseSavedListener;
 import com.abika.expense.application.port.in.TransactionUseCase;
+import com.abika.expense.application.port.out.BudgetAlertRepository;
 import com.abika.expense.application.port.out.CategoryRepository;
+import com.abika.expense.application.port.out.DeviceTokenRepository;
 import com.abika.expense.application.port.out.PasswordHasher;
+import com.abika.expense.application.port.out.PushSender;
 import com.abika.expense.application.port.out.TokenIssuer;
 import com.abika.expense.application.port.out.TransactionRepository;
 import com.abika.expense.application.port.out.UserRepository;
 import com.abika.expense.application.service.AuthService;
+import com.abika.expense.application.service.BudgetCheckService;
 import com.abika.expense.application.service.CategoryService;
 import com.abika.expense.application.service.TransactionService;
 import org.springframework.context.annotation.Bean;
@@ -29,15 +34,21 @@ public class UseCaseConfig {
         return new AuthService(users, passwordHasher, tokenIssuer, clock);
     }
 
-    // shortcut: budget alerts don't exist yet, so clearing them is a no-op; replaced by the real adapter in the budget-alert feature.
     @Bean
-    CategoryUseCase categoryUseCase(CategoryRepository categories, TransactionRepository transactions) {
-        return new CategoryService(categories, transactions, categoryId -> { });
+    CategoryUseCase categoryUseCase(CategoryRepository categories, TransactionRepository transactions,
+                                    BudgetAlertRepository budgetAlerts) {
+        return new CategoryService(categories, transactions, budgetAlerts);
     }
 
-    // shortcut: no budget check yet, so saved expenses trigger nothing; replaced by BudgetCheckService in the budget-alert feature.
     @Bean
-    TransactionUseCase transactionUseCase(TransactionRepository transactions, CategoryRepository categories) {
-        return new TransactionService(transactions, categories, (saved, category) -> { });
+    ExpenseSavedListener budgetCheck(TransactionRepository transactions, BudgetAlertRepository budgetAlerts,
+                                     DeviceTokenRepository devices, PushSender pushSender) {
+        return new BudgetCheckService(transactions, budgetAlerts, devices, pushSender);
+    }
+
+    @Bean
+    TransactionUseCase transactionUseCase(TransactionRepository transactions, CategoryRepository categories,
+                                          ExpenseSavedListener budgetCheck) {
+        return new TransactionService(transactions, categories, budgetCheck);
     }
 }
