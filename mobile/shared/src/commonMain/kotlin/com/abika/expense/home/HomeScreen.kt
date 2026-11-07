@@ -19,11 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import com.abika.expense.feature.category.ui.CategoriesScreen
+import com.abika.expense.feature.transaction.ui.TransactionsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onLogout: () -> Unit, modifier: Modifier = Modifier) {
-    var selected by rememberSaveable { mutableIntStateOf(HomeTab.Categories.ordinal) }
+    var selected by rememberSaveable { mutableIntStateOf(HomeTab.Transactions.ordinal) }
     val tab = HomeTab.entries[selected]
 
     Scaffold(
@@ -50,7 +51,8 @@ fun HomeScreen(onLogout: () -> Unit, modifier: Modifier = Modifier) {
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
             when (tab) {
                 HomeTab.Categories -> CategoriesScreen()
-                HomeTab.Dashboard, HomeTab.Transactions -> Text(
+                HomeTab.Transactions -> TransactionsScreen()
+                HomeTab.Dashboard -> Text(
                     "${tab.label} segera hadir.",
                     modifier = Modifier.align(Alignment.Center),
                 )
