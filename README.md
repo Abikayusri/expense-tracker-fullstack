@@ -5,7 +5,7 @@ A small expense tracker used to practise fullstack development: a Java backend, 
 | Part | Stack | Status |
 |---|---|---|
 | `backend/` | Java 21, Spring Boot 4, PostgreSQL, hexagonal architecture | Done |
-| `web/` | Vue 3 | Planned |
+| `web/` | Vue 3, TypeScript, Vite, TanStack Vue Query, Pinia, Tailwind CSS | Done |
 | `mobile/` | Kotlin Multiplatform, Compose Multiplatform | Planned |
 
 ## Features
@@ -46,7 +46,30 @@ To send real push notifications, download a service-account key from the Firebas
 FIREBASE_CREDENTIALS_PATH=/secrets/firebase.json docker compose up --build
 ```
 
-## Run the tests
+## Run the web app
+
+Requirements: Node 24 and the backend running (see above).
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+Open http://localhost:3100. The dev server forwards `/api` to `http://localhost:8080`; point it elsewhere with `API_TARGET`, for example `API_TARGET=http://localhost:9100 npm run dev`.
+
+If `npm install` fails with `Cannot read properties of null (reading 'edgesOut')`, your npm has a known bug; update it with `npm install -g npm@latest` or run `npx npm@latest install`.
+
+Web tests and checks:
+
+```bash
+cd web
+npm run test:unit -- --run
+npm run type-check
+npm run lint
+```
+
+## Run the backend tests
 
 ```bash
 cd backend && ./gradlew test

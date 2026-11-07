@@ -1,11 +1,11 @@
 import { createRouter, type RouterHistory } from 'vue-router'
 import { useAuthStore } from '@/features/auth/store'
 import AppLayout from './AppLayout.vue'
-import PlaceholderPage from './PlaceholderPage.vue'
 import LoginPage from '@/features/auth/LoginPage.vue'
 import RegisterPage from '@/features/auth/RegisterPage.vue'
 import CategoriesPage from '@/features/categories/CategoriesPage.vue'
 import TransactionsPage from '@/features/transactions/TransactionsPage.vue'
+import DashboardPage from '@/features/summary/DashboardPage.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -23,7 +23,7 @@ export function createAppRouter(history: RouterHistory) {
         path: '/',
         component: AppLayout,
         children: [
-          { path: '', component: PlaceholderPage, props: { title: 'Dashboard' } },
+          { path: '', component: DashboardPage },
           { path: 'transactions', component: TransactionsPage },
           { path: 'categories', component: CategoriesPage },
         ],

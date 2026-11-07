@@ -4,6 +4,11 @@ import { renderApp } from '@/test/render'
 import { mockFetch } from '@/test/mockFetch'
 
 const ME = { id: 1, email: 'budi@mail.com', name: 'Budi' }
+const EMPTY_SUMMARY = { totalIncome: 0, totalExpense: 0, balance: 0, perCategory: [] }
+
+function appData(url: string) {
+  return { status: 200, body: url === '/api/me' ? ME : EMPTY_SUMMARY }
+}
 
 describe('auth pages', () => {
   beforeEach(() => localStorage.clear())
@@ -14,7 +19,7 @@ describe('auth pages', () => {
 
   it('logs in and returns to the requested page', async () => {
     const fetch = mockFetch((url) =>
-      url === '/api/auth/login' ? { status: 200, body: { token: 'jwt-1' } } : { status: 200, body: ME },
+      url === '/api/auth/login' ? { status: 200, body: { token: 'jwt-1' } } : appData(url),
     )
     const { wrapper, router } = await renderApp('/login?redirect=/transactions')
 
@@ -61,7 +66,7 @@ describe('auth pages', () => {
 
   it('registers and goes to the dashboard', async () => {
     mockFetch((url) =>
-      url === '/api/auth/register' ? { status: 201, body: { token: 'jwt-2' } } : { status: 200, body: ME },
+      url === '/api/auth/register' ? { status: 201, body: { token: 'jwt-2' } } : appData(url),
     )
     const { wrapper, router } = await renderApp('/register')
 

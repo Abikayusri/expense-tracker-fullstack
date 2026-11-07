@@ -3,6 +3,13 @@ import { flushPromises } from '@vue/test-utils'
 import { renderApp } from '@/test/render'
 import { mockFetch } from '@/test/mockFetch'
 
+const ME = { id: 1, email: 'budi@mail.com', name: 'Budi' }
+const EMPTY_SUMMARY = { totalIncome: 0, totalExpense: 0, balance: 0, perCategory: [] }
+
+function loggedInBackend() {
+  return mockFetch((url) => ({ status: 200, body: url === '/api/me' ? ME : EMPTY_SUMMARY }))
+}
+
 describe('routing and session', () => {
   beforeEach(() => localStorage.clear())
   afterEach(() => {
@@ -19,7 +26,7 @@ describe('routing and session', () => {
 
   it('sends logged-in users away from login', async () => {
     localStorage.setItem('expense.token', 'jwt-1')
-    mockFetch(() => ({ status: 200, body: { id: 1, email: 'budi@mail.com', name: 'Budi' } }))
+    loggedInBackend()
     const { router } = await renderApp('/login')
 
     expect(router.currentRoute.value.path).toBe('/')
@@ -37,10 +44,10 @@ describe('routing and session', () => {
 
   it('logout button clears the session', async () => {
     localStorage.setItem('expense.token', 'jwt-1')
-    mockFetch(() => ({ status: 200, body: { id: 1, email: 'budi@mail.com', name: 'Budi' } }))
+    loggedInBackend()
     const { wrapper, router } = await renderApp('/')
 
-    await wrapper.get('button').trigger('click')
+    await wrapper.findAll('button').find((b) => b.text() === 'Keluar')!.trigger('click')
     await flushPromises()
 
     expect(router.currentRoute.value.path).toBe('/login')
